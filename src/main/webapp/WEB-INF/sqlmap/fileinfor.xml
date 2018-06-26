@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="fileinfor">
+	<select id="/fileinfor/list" resultType="Map" parameterType="Map">
+		select
+			FILEINFORID,
+			PHYSICALFILENAME,
+			LOGICALFILENAME,
+			PHYSICALFILEDIRECTORY,
+			FILESIZE,
+			FILETYPE,
+			FILECONTENTTYPE,
+			PHYSICALTHUMBNAILDIRECTORY,
+			PHYSICALTHUMBNAILFILENAME,
+			RELATEDID
+		from T_FILEINFORS
+		where RELATEDID=#{RELATEDID}
+	</select>
+
+	<select id="/fileinfor/read" resultType="Map" parameterType="Map">
+		select
+			FILEINFORID,
+			PHYSICALFILENAME,
+			LOGICALFILENAME,
+			PHYSICALFILEDIRECTORY,
+			FILESIZE,
+			FILETYPE,
+			FILECONTENTTYPE,
+			PHYSICALTHUMBNAILDIRECTORY,
+			PHYSICALTHUMBNAILFILENAME,
+			RELATEDID
+		from T_FILEINFORS
+		where FILEINFORID=#{FILEINFORID}
+	</select>
+
+	<insert id="/fileinfor/insert" parameterType="Map">
+		insert into T_FILEINFORS (
+			FILEINFORID,
+			PHYSICALFILENAME,
+			LOGICALFILENAME,
+			PHYSICALFILEDIRECTORY,
+			FILESIZE,
+			FILETYPE,
+			FILECONTENTTYPE,
+			PHYSICALTHUMBNAILDIRECTORY,
+			PHYSICALTHUMBNAILFILENAME,
+			RELATEDID
+		)
+		values(
+			#{FILEINFORID},
+			#{PHYSICALFILENAME},
+			#{LOGICALFILENAME},
+			#{PHYSICALFILEDIRECTORY},
+			#{FILESIZE},
+			#{FILETYPE},
+			#{FILECONTENTTYPE},
+			#{PHYSICALTHUMBNAILDIRECTORY},
+			#{PHYSICALTHUMBNAILFILENAME},
+			#{RELATEDID}
+		)
+	</insert>
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<!-- Main template -->
+	<definition name="layout.main" template="/WEB-INF/tilesdef/template/layout_main.jsp"
+		preparer="menuPreparer">
+		<put-attribute name="menuTop"
+			value="/WEB-INF/tilesdef/template/menuTop.jsp" />
+	</definition>
+
+	<!-- Sub template -->
+	<definition name="layout.sub" template="/WEB-INF/tilesdef/template/layout_sub.jsp"
+		preparer="menuPreparer">
+		<put-attribute name="menuTop"
+			value="/WEB-INF/tilesdef/template/menuSubTop.jsp" />
+		<put-attribute name="menuRight"
+			value="/WEB-INF/tilesdef/template/menuRight.jsp" />
+	</definition>
+
+	<!-- home -->
+	<definition name="home" extends="layout.main">
+		<put-attribute name="title" value="Home" />
+		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
+	</definition>
+
+	<!-- member -->
+	<definition name="/*/*" extends="layout.sub">
+		<put-attribute name="title" value="{1} > {2}" />
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+	</definition>
+</tiles-definitions>

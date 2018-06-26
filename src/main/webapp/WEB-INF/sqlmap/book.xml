@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="book">
+	<select id="/book/read" resultType="Map" parameterType="Map">
+		select
+		BOOKID
+		, BOOKNAME
+		, PUBLISHER
+		, AUTHOR
+		, BOOKINFORMATION
+			, FILEINFORID
+			, PHYSICALFILENAME
+			, LOGICALFILENAME
+			, PHYSICALFILEDIRECTORY
+			, FILESIZE
+			, FILETYPE
+			, FILECONTENTTYPE
+			, PHYSICALTHUMBNAILDIRECTORY
+			, PHYSICALTHUMBNAILFILENAME
+			, RELATEDID
+		from T_BOOKS BOOKS
+		left join T_FILEINFORS FILEINFORS
+		on BOOKS.BOOKID = FILEINFORS.RELATEDID
+		where
+		BOOKID=#{BOOKID}
+	</select>
+
+	<insert id="/book/insert" parameterType="Map">
+		insert into T_BOOKS (
+		BOOKID
+		, BOOKNAME
+		, PUBLISHER
+		, AUTHOR
+		, BOOKINFORMATION
+		)
+		values(
+		#{BOOKID}
+		, #{BOOKNAME}
+		, #{PUBLISHER}
+		, #{AUTHOR}
+		, #{BOOKINFORMATION}
+		)
+	</insert>
+</mapper>

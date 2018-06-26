@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="member">
+	<select id="/member/list" resultType="Map" parameterType="Map">
+		select MEMBERID
+		, MEMBERNAME
+		, PASSWORD
+		, EMAIL
+		, ENABLED
+		from T_MEMBERS
+		where 1 = 1
+		<if test="searchCode != null">
+			and ${searchCode} like '%${searchWord}%'
+		</if>
+		order by MEMBERNAME
+	</select>
+
+	<select id="/member/read" resultType="Map" parameterType="Map">
+		select MEMBERID
+		, MEMBERNAME
+		, PASSWORD
+		, EMAIL
+		, ENABLED
+		from T_MEMBERS
+		where MEMBERID=#{MEMBERID}
+	</select>
+
+	<insert id="/member/insert" parameterType="Map">
+		insert into T_MEMBERS (
+		MEMBERID, MEMBERNAME, PASSWORD, email, ENABLED
+		)
+		values(
+		#{MEMBERID}, #{MEMBERNAME}, #{PASSWORD}
+		, #{EMAIL}
+		, 'Y'
+		)
+		<!-- selectKey resultType="String" keyProperty="MEMBERID"> select last_insert_id() 
+			as MEMBERID </selectKey -->
+	</insert>
+
+	<update id="/member/update" parameterType="Map">
+		update T_MEMBERS set
+		MEMBERNAME = #{MEMBERNAME}
+		, PASSWORD = #{PASSWORD}
+		, EMAIL = #{EMAIL}
+		, ENABLED = 'Y'
+		where MEMBERID=#{MEMBERID}
+	</update>
+
+	<delete id="/member/delete" parameterType="Map">
+		delete from T_MEMBERS
+		where MEMBERID=#{MEMBERID}
+	</delete>
+</mapper>
