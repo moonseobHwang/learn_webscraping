@@ -10,7 +10,7 @@ path = '/Users/sanghunoh/Documents/Develop/chromedriver'
 driver = webdriver.Chrome(path)
 
 # login
-driver.get('http://sdacademy.maniaro.com/')
+driver.get('http://sdacademy.maniaro.com/teacher/index.php')
 driver.implicitly_wait(5)
 username = 'my_id'
 userpw = 'my_password'
