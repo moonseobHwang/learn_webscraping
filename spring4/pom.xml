@@ -14,7 +14,7 @@
 		<org.slf4j-version>1.7.7</org.slf4j-version>
 		<org.apach.tiles-version>3.0.5</org.apach.tiles-version>
 		<org.springframework.security-version>4.0.1.RELEASE</org.springframework.security-version>
-		<jackson.databind-version>2.4.5</jackson.databind-version>
+		<jackson.databind-version>2.9.10.5</jackson.databind-version>
 		<org.mybatis.version>3.3.0</org.mybatis.version>
 	</properties>
 	<dependencies>
