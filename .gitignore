@@ -1,2 +1,4 @@
-/target/
-/.DS_Store
+**/target/
+**/.settings
+**/.*
+**/.DS_Store
