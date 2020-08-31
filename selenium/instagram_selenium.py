@@ -8,7 +8,7 @@ chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_argument('--headless')
 
-path = "/home/sundooedu/Downloads/chromedriver_linux64/chromedriver"
+path = "/Users/sanghunoh/Documents/Develop/chromedriver"
 driver = webdriver.Chrome(path, chrome_options=chrome_options)
 loginUrl = 'https://www.instagram.com/accounts/login/?next=%2Fofficial_sunmi%2F&source=desktop_nav'
 driver.implicitly_wait(5)

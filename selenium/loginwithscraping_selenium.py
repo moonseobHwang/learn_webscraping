@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 
-path = '/home/sundooedu/Downloads/chromedriver_linux64/chromedriver'
+path = '/Users/sanghunoh/Documents/Develop/chromedriver'
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('--no-sandbox')
