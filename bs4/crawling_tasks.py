@@ -1,5 +1,9 @@
-from django.shortcuts import render,HttpResponse
-from background_task import background
+from datetime import datetime
+import sqlite3
+from bs4 import BeautifulSoup
+import requests
+from django.shortcuts import render, HttpResponse
+from background_task import background          # pip install background_tasks
 # Create your views here.
 import time
 @background
@@ -8,11 +12,6 @@ def task_hello(schedule=3, repeat=10):
     time_str = time.strftime("%m/%d/%Y, %H:%M:%S", time_tuple)
     print("task ... Hello World!", time_str)
 
-
-import requests
-from bs4 import BeautifulSoup
-import sqlite3
-from datetime import datetime
 
 @background
 def task_crawling_daum(schedule=60, repeat=60*60*1):
@@ -26,7 +25,7 @@ def task_crawling_daum(schedule=60, repeat=60*60*1):
         # conn.execute(query)
         # conn.commit()
         # conn.close()
-        
+
         date_str = datetime.utcnow().strftime('%Y%m%d')
         time_str = datetime.utcnow().strftime('%Y%m%d%H%M%S%f')
         with sqlite3.connect("db.sqlite3") as con:
@@ -37,7 +36,7 @@ def task_crawling_daum(schedule=60, repeat=60*60*1):
             for link in links:
                 title = str.strip(link.get_text())
                 link = link.get('href')
-                cur.execute(query,(date_str,title,link))
+                cur.execute(query, (date_str, title, link))
             con.commit()
     time_tuple = time.localtime()
     time_str = time.strftime("%m/%d/%Y, %H:%M:%S", time_tuple)
