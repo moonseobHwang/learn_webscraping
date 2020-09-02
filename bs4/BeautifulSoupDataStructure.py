@@ -27,13 +27,5 @@ with open(path) as fp:
     print(type(soup.a), soup.a)
     # <a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>
 
-    print(type(soup.find_all('a')), soup.find_all('a'))
-    # <class 'bs4.element.ResultSet'> [<a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>,
-    #  <a class="sister" href="http://example.com/lacie" id="link2">Lacie</a>,
-    #  <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>]
-
-    print(type(soup.find(id="link3")), soup.find(id="link3"))
-    # <class 'bs4.element.Tag'> <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>
-
     print(type(soup.get_text()), soup.get_text())
     # <class 'str'> The Dormouse's story ... 
