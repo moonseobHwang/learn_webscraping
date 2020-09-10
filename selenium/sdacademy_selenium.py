@@ -6,16 +6,16 @@ import time
 
 path = '/Users/sanghunoh/Documents/Develop/chromedriver'
 chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('--headless')
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
+# chrome_options.add_argument('--headless')
+# chrome_options.add_argument('--no-sandbox')
+# chrome_options.add_argument('--disable-dev-shm-usage')
 driver = webdriver.Chrome(path, chrome_options=chrome_options)
 
 # login
 driver.get('http://sdacademy.maniaro.com/teacher/index.php')
 driver.implicitly_wait(5)
-username = 'my_id'
-userpw = 'my_password'
+username = 'user name'
+userpw = 'user password'
 driver.find_element_by_name('strUid').send_keys(username)
 driver.find_element_by_name('strPassword').send_keys(userpw)
 driver.find_element_by_xpath("//input[@type='submit']").click()
@@ -28,8 +28,22 @@ driver.implicitly_wait(5)
 trs = driver.find_elements_by_xpath("//tr[@class='link_yellow text-c']")
 
 # connect MongoDB
-client = MongoClient('mongodb://172.17.0.2:27017/')
-mydb = client.mydb						# get Database
+client = MongoClient('mongodb://192.168.0.6:27017/')
+# if ("sdacademydb" not in client.database_names()):
+sdacademydb = client['sdacademydb']						# get Database
+
+# check collections
+if ("charters" not in sdacademydb.list_collection_names()):
+    sdacademydb.create_collection('charters')
+if ("meetings" not in sdacademydb.list_collection_names()):
+    sdacademydb.create_collection('meetings')
+if ("clientevaluates" not in sdacademydb.list_collection_names()):
+    sdacademydb.create_collection('clientevaluates')
+if ("answers" not in sdacademydb.list_collection_names()):
+    sdacademydb.create_collection('answers')
+if ("questions" not in sdacademydb.list_collection_names()):
+    sdacademydb.create_collection('questions')
+
 from itertools import product
 from selenium.common.exceptions import NoSuchElementException
 
@@ -39,11 +53,11 @@ for i in range(len(trs)-1):     # without final project
         "//tr[@class='link_yellow text-c']")[i]
     # print(charterlist.get_attribute('innerHTML'))
     source = charterlist.get_attribute('innerHTML')
-    soup = BeautifulSoup(source, 'html.parser')
-    charter = soup.find_all('td')
+    soup = BeautifulSoup(source, 'lxml')
+    charter = soup.findAll('td')
     data = {'charter': charter[0].text, 'evaluteway': charter[1].text, 'lecturer': charter[2].text, 'startdate': charter[3].text,
             'enddate': charter[4].text, 'evaldate': charter[5].text, 'missdate': charter[6].text, 'reevaldate': charter[7].text, 'mean': charter[9].text}
-    charters_infor = mydb.charters.insert(data)
+    charters_infor = sdacademydb.charters.insert(data)
 
     charter_click = driver.find_elements_by_xpath(
         "//a[@class='button button-blue']")[i].click()
@@ -57,7 +71,7 @@ for i in range(len(trs)-1):     # without final project
     # print(meeting[1].text)
     data = {'meetdate': els[1].text,
             'content': els[3].text, 'detail': els[5].text, 'charter_objectid':charters_infor}
-    meeting_infor = mydb.meetings.insert(data)
+    meeting_infor = sdacademydb.meetings.insert(data)
     driver.back()   # evaluate main page
 
     # evaluate list page
@@ -86,7 +100,7 @@ for i in range(len(trs)-1):     # without final project
 
             print(clientname, evaluatecontent)
             data = {'clientname': clientname, 'evaluatecontent': evaluatecontent, 'charter_objectid':charters_infor}
-            client_infor = mydb.clientevaluates.insert(data)
+            client_infor = sdacademydb.clientevaluates.insert(data)
 
             evaluatelist = driver.find_elements_by_xpath("//tr[@class='link_yellow text-c cur']")
             scorelist = ''
@@ -109,7 +123,7 @@ for i in range(len(trs)-1):     # without final project
 
                 data = {'number': els[0].text, 'evaluatescore': evaluatescore,
                 'answer': subels[5].text, 'client_infor':client_infor, 'charter_objectid':charters_infor}
-                evaluate_infor = mydb.answers.insert(data)
+                evaluate_infor = sdacademydb.answers.insert(data)
 
             driver.back()
         print('end client anwser')
@@ -136,7 +150,7 @@ for i in range(len(trs)-1):     # without final project
 
                 data = {'sortofquestion':sortofquestion,'number': els[1].text, 'question': els[2].text, 'score': els[3].text,
                 'standardanswer': subels[3].text, 'standard': subels[5].text, 'charter_objectid':charters_infor}
-                question_infor = mydb.questions.insert(data)
+                question_infor = sdacademydb.questions.insert(data)
 
     driver.find_elements_by_xpath("//a[@class='button button-black']")[1].click() # charters page
     driver.implicitly_wait(5)
