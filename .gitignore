@@ -2,3 +2,7 @@
 **/.settings
 **/.*
 **/.DS_Store
+config.properties
+**/ownconfiguration
+**/*.csv
+db.sqlite3

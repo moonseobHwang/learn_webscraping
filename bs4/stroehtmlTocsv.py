@@ -5,9 +5,9 @@ path_in = 'datas/sample01.html'
 soup = BeautifulSoup(open(path_in), features="lxml")
 
 final_link = soup.a
-final_link.decompose()
+# final_link.decompose()
 
-path_out = 'datas/sample01.csv'
+path_out = 'datas/output01.csv'
 
 links = soup.find_all('a')
 
