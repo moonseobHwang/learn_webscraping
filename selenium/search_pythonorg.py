@@ -15,4 +15,4 @@ assert "No results found." not in driver.page_source
 print(driver.page_source)
 import time
 time.sleep(90000)   # 9 second
-driver.close()
+driver.quit()

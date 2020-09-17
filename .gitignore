@@ -6,3 +6,5 @@ config.properties
 **/ownconfiguration
 **/*.csv
 db.sqlite3
+**/screenshot.png
+**/pictures

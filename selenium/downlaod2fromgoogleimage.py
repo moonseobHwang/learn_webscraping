@@ -78,7 +78,8 @@ def persist_image(folder_path:str,url:str):
     except Exception as e:
         print(f"ERROR - Could not save {url} - {e}")    
 
-def search_and_download(search_term:str,driver_path:str,target_path='./images',number_images=5):
+def search_and_download(search_term:str,driver_path:str,target_path='./pictures',number_images=5):
+    t0 = time.time()
     target_folder = os.path.join(target_path,'_'.join(search_term.lower().split(' ')))
 
     if not os.path.exists(target_folder):
@@ -88,14 +89,21 @@ def search_and_download(search_term:str,driver_path:str,target_path='./images',n
         res = fetch_image_urls(search_term, number_images, wd=wd, sleep_between_interactions=0.5)
         
     for elem in res:
-        persist_image(target_folder,elem)        
+        persist_image(target_folder,elem)    
+
+    t1 = time.time()
+    total_time = t1 - t0
+    
 
 # Main block
 def main():
     chromedriver = '/Users/sanghunoh/Documents/Develop/chromedriver'
     # target_path = '/Users/sanghunoh/Download/images'
     t0 = time.time()
-    search_and_download(search_term='cat', driver_path=chromedriver, number_images=20)
+    search_keys = ['cat', 'dog']
+    number_images = 20
+    for key in search_keys:
+        search_and_download(search_term=key, driver_path=chromedriver, number_images=number_images)
     t1 = time.time()
     total_time = t1 - t0
     print(f'Total time is {str(total_time)} seconds.')
