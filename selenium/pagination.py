@@ -5,7 +5,6 @@ from selenium.common.exceptions import NoSuchElementException
 path = '/Users/sanghunoh/Documents/Develop/chromedriver'
 
 driver = webdriver.Chrome(executable_path=path)
-# path = "https://www.k-startup.go.kr"
 path = "https://www.k-startup.go.kr/common/announcement/announcementList.do?mid=30004&bid=701&searchAppAt=N&searchModeKeword=A"
 driver.get(url=path)
 
