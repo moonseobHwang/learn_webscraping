@@ -58,5 +58,5 @@ with open(path) as fp:
     result = soup.find_all(name=re.compile("t"))
     for tag in result:
         print(type(tag), tag, type(tag.name), tag.name)
-    # <class 'str'> html
-    # <class 'str'> title
+        # <class 'str'> html
+        # <class 'str'> title
