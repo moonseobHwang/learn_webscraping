@@ -74,7 +74,7 @@ def download_google_staticimages():
 
     # Below is in japanese "show more result" sentences. Change this word to your lanaguage if you require.
     searchword = searchword1 +' '+searchword2+' '+searchword3
-    browser.find_element_by_xpath('//input[@value="cat dog cartoon"]').click()
+    browser.find_element_by_xpath('//input[@value="'+searchword+'"]').click()
 
     # Scroll down 2
     for i in range(50):

@@ -21,8 +21,9 @@ print(type(search_box), search_box)
 
 # Is Element Enabled
 # Returns true if element is enabled else returns false
+# driver.implicitly_wait(10)
 result_element = driver.find_element(By.NAME, 'btnK')
-result_element.screenshot('datas/screenshot.png')
+result_element.screenshot('datas/screenshot.png')       # need break point
 value = result_element.is_enabled()
 print(type(value), value)
 # <class 'bool'> True
@@ -31,8 +32,10 @@ print(type(value), value)
 # Navigate to url
 driver.get("https://the-internet.herokuapp.com/checkboxes")
 # Returns true if element is checked else returns false
-value = driver.find_element(By.CSS_SELECTOR, "input[type='checkbox']:first-of-type").is_selected()
+# value = driver.find_element(By.CSS_SELECTOR, "input[type='checkbox']:first-of-type").is_selected()
+value = driver.find_element(By.CSS_SELECTOR, "input[type='checkbox']").is_selected()
 print(type(value), value)
+# <class 'bool'> False
 
 # Get Element TagName
 attr = driver.find_element(By.CSS_SELECTOR, "[name='viewport']").tag_name
@@ -40,13 +43,6 @@ print(type(attr), attr)
 # <class 'str'> meta
 
 driver.get(url="https://www.google.com/")
-# Get Active Element
-driver.find_element(By.CSS_SELECTOR, '[name="q"]').send_keys("webElement")
-# Get attribute of current active element
-attr = driver.switch_to.active_element.get_attribute("title")
-print(type(attr), attr)
-# <class 'str'> 검색
-
 # Get Element Rect
 res = driver.find_element(By.CSS_SELECTOR, 'input[name="q"]').rect
 print(type(res), res)
