@@ -17,6 +17,9 @@ with open('datas/sample02.html') as fp:
     print(title_tag.parent, title_tag.string.parent)
     link=soup.p
     print(type(link.parents), len(list(link.parents)))
+
+    #a -> p -> body -> html -> document
+    print(list(link.parents[0]))
     # <class 'generator'> 4 -generator that behaves like an iterator
     for parent in link.parents:                 #parent 사용자 정의 변수
         print(type(parent.name), parent.name)
